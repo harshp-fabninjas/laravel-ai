@@ -31,19 +31,31 @@
 
                     <form @submit.prevent="sendQuery()" class="relative flex flex-col flex-1 min-h-0">
                         <div class="flex-1 min-h-0">
-                            <textarea x-model="newQuery" placeholder="Paste or type your text here..."
+                            <textarea x-ref="input" x-model="newQuery" placeholder="Paste or type your text here..."
                                     @keydown.enter="if (!$event.shiftKey) { $event.preventDefault(); sendQuery() }"
                                     class="h-full w-full resize-none px-4 py-3 border border-[#e3e3e0] focus:outline-none focus:ring-2 focus:ring-indigo-200 rounded-2xl text-[14px] leading-6 overflow-y-auto"></textarea>
                         </div>
 
                         <div class="mt-3 flex items-center justify-between">
-                            <button type="submit" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5">
-                                    <path d="M22 2L11 13"/>
-                                    <path d="M22 2l-7 20-4-9-9-4 20-7z"/>
-                                </svg>
-                                <span>Summarize</span>
-                            </button>
+                            <div class="inline-flex items-center gap-2">
+                                <button type="button" @click="clearInput()" class="inline-flex items-center gap-2 bg-white border border-[#e3e3e0] hover:bg-gray-50 text-[#1b1b18] px-4 py-2 rounded-xl">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5">
+                                        <path d="M3 6h18"/>
+                                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+                                        <path d="M10 11v6"/>
+                                        <path d="M14 11v6"/>
+                                    </svg>
+                                    <span>Clear</span>
+                                </button>
+                                <button type="submit" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5">
+                                        <path d="M22 2L11 13"/>
+                                        <path d="M22 2l-7 20-4-9-9-4 20-7z"/>
+                                    </svg>
+                                    <span>Summarize</span>
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -101,13 +113,16 @@
                 isLoading: false,
                 latencySeconds: null,
                 tokens: null,
+                clearInput() {
+                    this.newQuery = '';
+                    this.$nextTick(() => this.$refs.input && this.$refs.input.focus());
+                },
                 async sendQuery() {
                     let userInput = this.newQuery.trim();
                     if (userInput === '') return;
 
-                    // Clear previous response and input
+                    // Clear previous response
                     this.messages = [];
-                    this.newQuery = '';
                     this.latencySeconds = null;
                     this.tokens = null;
 
