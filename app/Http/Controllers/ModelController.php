@@ -42,11 +42,25 @@ class ModelController extends Controller
         $userQuery = $request->input('query');
         $llmModel = 'gemma3:1b';
 
+        // with system prompts, we can change the response behavior of the model
+        $systemPrompts = [
+            'general' => "You are an expert summarizer AI.
+                Rules:
+                - Always summarize text clearly and concisely.
+                - Keep the output between 3 to 5 bullet points.
+                - Do not add extra commentary or opinions.
+                - Always capture the key facts only.",
+        ];
+
+        // Pick system prompt
+        $systemPrompt = $systemPrompts['general'];
+
         $startedAt = microtime(true);
         $prompt = 'Summarize this: '.$userQuery;
 
         $response = Prism::text()
             ->using(Provider::Ollama, $llmModel)
+            ->withSystemPrompt($systemPrompt)
             ->withPrompt($prompt)
             ->asText();
 
