@@ -29,6 +29,12 @@ class ModelController extends Controller
 
         $response = Prism::text()
             ->using(Provider::Ollama, $llmModel)
+            ->withClientOptions([
+                'timeout' => 180,
+                'connect_timeout' => 5,
+            ])
+            ->withClientRetry(2, 500)
+            // ->withMaxTokens(512)
             ->withPrompt($userQuery)
             ->asText();
 
@@ -60,6 +66,12 @@ class ModelController extends Controller
 
         $response = Prism::text()
             ->using(Provider::Ollama, $llmModel)
+            ->withClientOptions([
+                'timeout' => 180,
+                'connect_timeout' => 5,
+            ])
+            ->withClientRetry(2, 500)
+            // ->withMaxTokens(512)
             ->withSystemPrompt($systemPrompt)
             ->withPrompt($prompt)
             ->asText();
