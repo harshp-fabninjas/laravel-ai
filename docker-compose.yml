@@ -6,6 +6,7 @@ services:
     container_name: laravel_ai_app
     ports:
       - "8080:80"
+      - "6274:6274" # MCP Inspector
     volumes:
       - ./:/var/www
     depends_on:

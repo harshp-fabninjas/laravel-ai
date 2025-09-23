@@ -1,12 +1,31 @@
 FROM php:8.2-cli
 
-# Install BusyBox, supervisor, and cron
-RUN apt-get update && apt-get install -y unzip zip curl git libzip-dev \
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    unzip \
+    zip \
+    curl \
+    git \
+    libzip-dev \
+    libicu-dev \
+    libonig-dev \
+    libxml2-dev \
     cron \
-    && docker-php-ext-install pdo pdo_mysql
+    wget \
+    gnupg \
+    && docker-php-ext-install \
+        pdo \
+        pdo_mysql \
+        zip \
+        intl \
+        mbstring \
+        bcmath
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# install node + npm
+RUN apt-get update && apt-get install -y nodejs npm
 
 # Set working directory
 WORKDIR /var/www
