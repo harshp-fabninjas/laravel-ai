@@ -117,4 +117,19 @@
         </div>
     </section>
 </div>
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var anchor = document.querySelector('a[href="#tools"]');
+    if (!anchor) return;
+    anchor.addEventListener('click', function (e) {
+        var tools = document.getElementById('tools');
+        if (!tools) return;
+        e.preventDefault();
+        tools.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        location.hash = 'tools';
+    });
+});
+</script>
+@endsection
 @endsection

@@ -31,7 +31,7 @@ class ModelController extends Controller
     {
         $llmModel = 'granite3.2-vision | llama3.2:latest';
 
-        return view('media-generation', compact('llmModel'));
+        return view('mediaAnalysis.media-analysis', compact('llmModel'));
     }
 
     public function chatBot(Request $request)

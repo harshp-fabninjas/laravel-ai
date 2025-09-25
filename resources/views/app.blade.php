@@ -7,7 +7,10 @@
 
         <style>[x-cloak]{display:none!important}</style>
 
-        <title>AI Tools Hub - {{ config('app.name', 'Laravel') }}</title>
+        <title>LaraMind</title>
+
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+        <link rel="alternate icon" href="/favicon.ico">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
