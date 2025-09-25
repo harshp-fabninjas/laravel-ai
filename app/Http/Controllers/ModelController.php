@@ -52,11 +52,10 @@ class ModelController extends Controller
                 'connect_timeout' => 5,
             ])
             ->withClientRetry(2, 500)
-            ->withMaxSteps(2)
-            // ->withMaxTokens(512)
+            // ->withMaxSteps(2)
             ->withSystemPrompt($systemPrompt)
             ->withPrompt($userQuery)
-            ->withTools(Relay::tools('latest-info-pull-tool'))
+            // ->withTools(Relay::tools('latest-info-pull-tool'))
             ->asText();
 
         return response()->json([
@@ -92,7 +91,6 @@ class ModelController extends Controller
                 'connect_timeout' => 5,
             ])
             ->withClientRetry(2, 500)
-            // ->withMaxTokens(512)
             ->withSystemPrompt($systemPrompt)
             ->withPrompt($prompt)
             ->asText();

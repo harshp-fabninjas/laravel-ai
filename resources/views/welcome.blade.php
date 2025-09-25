@@ -23,7 +23,7 @@
     </div>
 
     <!-- AI Tools Grid -->
-    <div id="tools" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
+    <div id="tools" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-10">
         <!-- Summary Generation Card -->
         <div class="group relative bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-slate-200 hover:border-purple-300 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
             <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -35,7 +35,7 @@
                 </div>
                 <h3 class="text-2xl font-bold text-slate-900 mb-4">Summary Generation</h3>
                 <p class="text-slate-600 mb-6 leading-relaxed">
-                    Create concise and accurate summaries from any text content in seconds.
+                    Create concise and accurate summaries from any content in seconds.
                 </p>
                 <a href="{{ route('summary_generation') }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-xl font-medium hover:from-purple-700 hover:to-purple-800 transition-all duration-300 group-hover:shadow-lg">
                     Try Now
@@ -69,7 +69,7 @@
         </div>
 
         <!-- Image Analysis Card -->
-        <div class="group relative bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-slate-200 hover:border-green-300 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+        {{-- <div class="group relative bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-slate-200 hover:border-green-300 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
             <div class="absolute inset-0 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div class="relative z-10">
                 <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -88,7 +88,7 @@
                         </svg>
                 </a>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <!-- About Section -->
