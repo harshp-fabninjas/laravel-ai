@@ -24,13 +24,13 @@
             </style>
         @endif
     </head>
-    <body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 text-slate-900 min-h-screen">
+    <body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 text-slate-900 min-h-screen flex flex-col">
 
         <!-- Navigation -->
         @include('layout.header')
 
         <!-- Hero Section -->
-        <main class="relative z-10">
+        <main class="relative z-10 flex-1">
             @yield('content')
         </main>
 

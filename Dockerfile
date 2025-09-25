@@ -13,19 +13,25 @@ RUN apt-get update && apt-get install -y \
     cron \
     wget \
     gnupg \
+    libmagickwand-dev \
+    imagemagick \
+    ghostscript \
+    nodejs \
+    npm \
+    poppler-utils \
     && docker-php-ext-install \
         pdo \
         pdo_mysql \
         zip \
         intl \
         mbstring \
-        bcmath
+        bcmath \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
-# install node + npm
-RUN apt-get update && apt-get install -y nodejs npm
 
 # Set working directory
 WORKDIR /var/www
