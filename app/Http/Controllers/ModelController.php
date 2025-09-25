@@ -5,19 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Prism\Prism\Prism;
 use Prism\Prism\Enums\Provider;
+use Prism\Relay\Facades\Relay;
 
 class ModelController extends Controller
 {
     public function textGeneration()
     {
-        $llmModel = 'gemma3:1b';
+        $llmModel = 'llama3.2:latest';
 
         return view('chatbot.chat', compact('llmModel'));
     }
 
     public function summaryGeneration()
     {
-        $llmModel = 'gemma3:1b';
+        $llmModel = 'llama3.2:latest';
 
         return view('summarybot.summary', compact('llmModel'));
     }
@@ -25,7 +26,13 @@ class ModelController extends Controller
     public function chatBot(Request $request)
     {
         $userQuery = $request->input('query');
-        $llmModel = 'gemma3:1b';
+        $llmModel = 'llama3.2:latest';
+
+        $systemPrompt = <<<PROMPT
+            You are a helpful chatbot.
+            - Use the `latest-info-pull-tool` ONLY when the user asks for any information like news and any current updates.
+            - For any questions that is not required the news API, DO NOT call the tool — just respond directly.
+        PROMPT;
 
         $response = Prism::text()
             ->using(Provider::Ollama, $llmModel)
@@ -34,19 +41,22 @@ class ModelController extends Controller
                 'connect_timeout' => 5,
             ])
             ->withClientRetry(2, 500)
+            ->withMaxSteps(2)
             // ->withMaxTokens(512)
+            ->withSystemPrompt($systemPrompt)
             ->withPrompt($userQuery)
+            ->withTools(Relay::tools('latest-info-pull-tool'))
             ->asText();
 
-        $text = $response->text;
-
-        return response()->json(['response' => $text]);
+        return response()->json([
+            'response' => $response->text ?? '',
+        ]);
     }
 
     public function summaryBot(Request $request)
     {
         $userQuery = $request->input('query');
-        $llmModel = 'gemma3:1b';
+        $llmModel = 'llama3.2:latest';
 
         // with system prompts, we can change the response behavior of the model
         $systemPrompts = [
