@@ -85,7 +85,7 @@
                 isLoading: false,
                 async sendQuery() {
                     let userInput = this.newQuery.trim();
-                    if (userInput === '') return;
+                    if (userInput === '' || this.isLoading) return;
 
                     // Add user message to conversation
                     this.messages.push({role: 'user', content: userInput});
@@ -95,7 +95,7 @@
                     // Send the conversation to the server
                     try {
                         this.isLoading = true;
-                        let response = await fetch("{{ route('chatbot')}}", {
+                        let response = await fetch("https://laravel-ai.test/chatbot", {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',

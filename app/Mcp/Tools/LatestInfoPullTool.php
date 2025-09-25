@@ -17,6 +17,7 @@ class LatestInfoPullTool extends Tool
         - The tool accepts a `query` parameter containing the full user request and an optional `max_results` parameter to limit the number of articles returned.
         - Returns structured results in Markdown format, including clickable links, source names, and publication dates.
         - For all other questions not related to current information, this tool **should not be called**.
+        - If this tool do not return any relevant information, respond with "No relevant information found.
     MARKDOWN;
 
     public function schema(JsonSchema $schema): array
